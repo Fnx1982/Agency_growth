@@ -14,7 +14,7 @@ export const DIAL = {
   CN: "86", HK: "852", TW: "886", JP: "81", KR: "82", SG: "65", MY: "60", TH: "66", VN: "84", PH: "63",
   ID: "62", MX: "52", AR: "54", CL: "56", CO: "57", PE: "51", VE: "58", EC: "593", BO: "591", PY: "595",
   UY: "598", CR: "506", PA: "507", GT: "502", HN: "504", SV: "503", NI: "505", DO: "1", PR: "1", JM: "1",
-  TT: "1", BS: "1", BB: "1", CU: "53", HT: "509", RU: "7", KZ: "7", GE: "995", AM: "374", AZ: "994",
+  TT: "1", BS: "1", BB: "1", HT: "509", RU: "7", KZ: "7", GE: "995", AM: "374", AZ: "994",
 };
 
 /** Países que aparecem primeiro na lista. */
@@ -43,3 +43,25 @@ export const EXAMPLES = {
   AU: "412 345 678", NZ: "21 123 4567", PT: "912 345 678", ES: "612 34 56 78", FR: "6 12 34 56 78",
   DE: "1512 3456789", IT: "312 345 6789",
 };
+
+/**
+ * LOCAIS ONDE NÃO PODEMOS VENDER (sanções; a Stripe proíbe):
+ * Cuba, Irã, Coreia do Norte, Síria e as regiões da Crimeia, Donetsk e Luhansk (Ucrânia).
+ * Os países não aparecem nas listas do site. As regiões são barradas pelo texto do endereço,
+ * no navegador e de novo no servidor (worker.js), porque Ucrânia continua permitida.
+ */
+export const BLOCKED_COUNTRIES = ["CU", "IR", "KP", "SY"];
+const BLOCKED_NAMES = /\b(cuba|iran|north korea|korea,? democratic|dprk|syria|syrian arab republic)\b/i;
+const BLOCKED_REGIONS = new RegExp(
+  "crimea|crimean|\\bkrym|sevastopol|simferopol|\\bkerch\\b|\\byalta\\b|feodosi|yevpatori|evpatori|dzhankoi|" +
+  "donetsk|donbas|makiivka|makeevka|horlivka|gorlovka|luhansk|lugansk|\\b(dnr|lnr|dpr|lpr)\\b|" +
+  "крым|севастопол|симферопол|донецк|донецьк|луганск|луганськ|днр|лнр", "i");
+
+/** true se o endereço for de um local onde não podemos vender. */
+export function isBlockedLocation(...parts) {
+  const text = parts.filter(Boolean).join(" ");
+  return BLOCKED_NAMES.test(text) || BLOCKED_REGIONS.test(text);
+}
+
+export const BLOCKED_MESSAGE =
+  "Sorry, we can't provide our services or accept payments for this location (Cuba, Iran, North Korea, Syria, Crimea, Donetsk or Luhansk).";

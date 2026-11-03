@@ -20,6 +20,7 @@ import { planTerms } from "./plan-terms.js";
 import { stripe, isTestKey, isLiveKey, validSignature } from "./stripe-api.js";
 import { sendPaidEmail, sendQuoteEmail, sendContactEmail, sendSubscriptionEmail } from "./email.js";
 import { json, clean, EMAIL_RE } from "./utils.js";
+import { isBlockedLocation, BLOCKED_MESSAGE } from "./countries.js";
 
 export default {
   async fetch(request, env, ctx) {
@@ -92,6 +93,8 @@ async function createCheckout(request, env, url) {
   if (!EMAIL_RE.test(d.email)) return json({ error: "Enter a valid email address." }, 400);
   if (c.b2b !== true) return json({ error: "Confirm that you are buying for your business." }, 400);
   if (c.agree !== true) return json({ error: "Accept the agreement to continue." }, 400);
+  // Sanções: Cuba, Irã, Coreia do Norte, Síria, Crimeia, Donetsk, Luhansk (ver countries.js)
+  if (isBlockedLocation(d.street, d.city, d.postcode, d.country, d.legal_name)) return json({ error: BLOCKED_MESSAGE }, 400);
 
   const t = planTerms(region, plan, months, billing);
   const r = PRICES[region];

@@ -6,7 +6,7 @@ import { PRICES, PLAN_NAMES, DISCOUNTS, totalMinor, fullMinor, monthlyMinor } fr
 import { CONTRACT_VERSION, CONTRACTS, renderAgreement } from "./contracts.js";
 import { planTerms } from "./plan-terms.js";
 import { INCLUDED, COMPARE, SERVICES, LEGAL, CONTACT, BADGES } from "./content.js";
-import { DIAL, TOP, EXAMPLES, FORMATS, TRUNK_ZERO } from "./countries.js";
+import { DIAL, TOP, EXAMPLES, FORMATS, TRUNK_ZERO, isBlockedLocation, BLOCKED_MESSAGE } from "./countries.js";
 
 /* ---------------- utilitários ---------------- */
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -308,6 +308,8 @@ $("#co-next").addEventListener("click", () => {
     return;
   }
   if (!checkoutPhone.valid()) { $("#co-phone").setAttribute("aria-invalid", "true"); note.textContent = "Check the phone number, or leave it blank."; return; }
+  const f = $("#coform");
+  if (isBlockedLocation(f.street.value, f.city.value, f.postcode.value, f.country.value)) { note.textContent = BLOCKED_MESSAGE; return; }
   renderPreview();
   setStep(2);
   $("#ag-preview").scrollTop = 0;
