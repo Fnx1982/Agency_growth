@@ -9,8 +9,8 @@
  * O texto depois de "?text=" é a mensagem que já vem escrita para o cliente (espaços viram %20).
  */
 export const CONTACT = {
-  whatsappUrl: "https://wa.me/447466689871?text=Hi!%20I%20want%20to%20know%20more%20about%20your%20Meta%20Ads%20trial",
-  whatsappNumber: "+44 7466 689871",
+  whatsappUrl: "https://wa.me/5541988123201?text=Hi%21%20I%20want%20to%20know%20more%20about%20your%20Meta%20Ads%20trial",
+  whatsappNumber: "+55 41 98812-3201",
   email: "molinagrowthagency@gmail.com", // aparece em "Contact us" e no rodapé
 };
 
