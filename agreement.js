@@ -3,7 +3,7 @@
  *   agreement.html?id=cs_...   -> contrato assinado (dados vêm do servidor/Stripe)
  *   agreement.html?region=uk   -> modelo em branco (UK ou US), para consulta antes de comprar
  */
-import { CONTRACT_VERSION, renderAgreement } from "./contracts.js";
+import { CONTRACT_VERSION, renderAgreement } from "./contracts.js?v=13";
 
 const params = new URLSearchParams(location.search);
 const doc = document.getElementById("doc");

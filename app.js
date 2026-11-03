@@ -2,11 +2,11 @@
  * Lógica da página: configurador de plano, pagamento (Stripe), orçamento e páginas legais.
  * Preços: prices.js   |   Textos/listas: content.js   |   Visual: style.css
  */
-import { PRICES, PLAN_NAMES, DISCOUNTS, totalMinor, fullMinor, monthlyMinor } from "./prices.js";
-import { CONTRACT_VERSION, CONTRACTS, renderAgreement } from "./contracts.js";
-import { planTerms } from "./plan-terms.js";
-import { INCLUDED, COMPARE, SERVICES, LEGAL, CONTACT, BADGES } from "./content.js";
-import { DIAL, TOP, EXAMPLES, FORMATS, TRUNK_ZERO, isBlockedLocation, BLOCKED_MESSAGE } from "./countries.js";
+import { PRICES, PLAN_NAMES, DISCOUNTS, totalMinor, fullMinor, monthlyMinor } from "./prices.js?v=13";
+import { CONTRACT_VERSION, CONTRACTS, renderAgreement } from "./contracts.js?v=13";
+import { planTerms } from "./plan-terms.js?v=13";
+import { INCLUDED, COMPARE, SERVICES, LEGAL, CONTACT, BADGES } from "./content.js?v=13";
+import { DIAL, TOP, EXAMPLES, FORMATS, TRUNK_ZERO, isBlockedLocation, BLOCKED_MESSAGE } from "./countries.js?v=13";
 
 /* ---------------- utilitários ---------------- */
 const $ = (sel, root = document) => root.querySelector(sel);
