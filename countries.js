@@ -64,4 +64,4 @@ export function isBlockedLocation(...parts) {
 }
 
 export const BLOCKED_MESSAGE =
-  "Sorry, we can't provide our services or accept payments for this location (Cuba, Iran, North Korea, Syria, Crimea, Donetsk or Luhansk).";
+  "Sorry, we can't provide our services or accept payments for this location.";
